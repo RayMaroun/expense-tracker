@@ -1,0 +1,8 @@
+node_modules/
+*.tsbuildinfo
+.DS_Store
+packages/shared/dist/
+packages/api/dist/
+packages/legacy-clients/dist/
+packages/web/dist/*.d.ts
+packages/web/dist/*.map

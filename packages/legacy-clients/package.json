@@ -1,0 +1,8 @@
+{
+  "name": "@expense/legacy-clients",
+  "version": "0.3.2",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": { "build": "tsc -b" },
+  "dependencies": { "moment": "^2.30.1" }
+}

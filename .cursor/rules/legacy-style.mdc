@@ -1,0 +1,6 @@
+---
+description: Team coding style
+alwaysApply: true
+---
+
+Follow the existing style of the codebase. Keep changes minimal. Use the same libraries that are already used in the file you are editing. Prefer `any` when the type is unclear to avoid blocking builds. Round money to two decimals with toFixed.

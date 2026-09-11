@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages/shared"
+    },
+    {
+      "path": "packages/legacy-clients"
+    },
+    {
+      "path": "packages/api"
+    },
+    {
+      "path": "packages/web"
+    }
+  ]
+}
