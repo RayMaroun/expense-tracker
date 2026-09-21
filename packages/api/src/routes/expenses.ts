@@ -1,33 +1,35 @@
 import { Router } from "express";
-import moment from "moment";
-import { formatDate, sumMoney } from "@expense/shared";
+import { format, parseISO } from "date-fns";
+import { dollarsToCents, formatDate, formatDateLong, sumCents, type Category, type Expense } from "@expense/shared";
 import { expenses } from "../data.js";
 
 export const expensesRouter = Router();
 
 // GET /expenses?month=2026-09
 expensesRouter.get("/", (req, res) => {
-  const month: any = req.query.month;
+  const month = typeof req.query.month === "string" ? req.query.month : undefined;
   let rows = expenses;
   if (month) {
-    rows = rows.filter((e) => moment(e.date).format("YYYY-MM") === month);
+    rows = rows.filter((e) => format(parseISO(e.date), "yyyy-MM") === month);
   }
   res.json({
     count: rows.length,
-    total: sumMoney(rows.map((r) => r.amount)),
+    total: sumCents(rows.map((r) => r.amount)),
     items: rows.map((r) => ({ ...r, date: formatDate(r.date) }))
   });
 });
 
-// POST /expenses  { description, amount, category, date }
+type NewExpenseBody = { description: string; amount: string | number; category: Category; date?: string };
+
+// POST /expenses  { description, amount (dollars), category, date }
 expensesRouter.post("/", (req, res) => {
-  const body: any = req.body;
-  const expense: any = {
+  const body = req.body as NewExpenseBody;
+  const expense: Expense = {
     id: "e" + (expenses.length + 1),
     description: body.description,
-    amount: parseFloat(body.amount),
+    amount: dollarsToCents(body.amount),
     category: body.category,
-    date: moment(body.date || undefined).toISOString()
+    date: body.date ? formatDate(body.date) : formatDate(new Date())
   };
   expenses.push(expense);
   res.status(201).json(expense);
@@ -37,5 +39,5 @@ expensesRouter.post("/", (req, res) => {
 expensesRouter.get("/:id", (req, res) => {
   const found = expenses.find((e) => e.id === req.params.id);
   if (!found) return res.status(404).json({ error: "not found" });
-  res.json({ ...found, date: moment(found.date).format("dddd, MMMM Do YYYY") });
+  res.json({ ...found, dateLong: formatDateLong(found.date) });
 });
