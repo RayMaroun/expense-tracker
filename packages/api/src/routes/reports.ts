@@ -29,7 +29,7 @@ reportsRouter.get("/monthly", (req, res) => {
     byCategory[r.category] = (byCategory[r.category] ?? 0) + r.amount;
   }
 
-  const days = daysBetween(from, to) + 1;
+  const days = daysBetween(format(from, "yyyy-MM-dd"), format(to, "yyyy-MM-dd")) + 1;
   const total = sumCents(rows.map((r) => r.amount));
   res.json({
     from: format(from, "yyyy-MM-dd"),

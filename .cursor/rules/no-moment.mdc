@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Dates
 
-- Never import `moment`. Use `date-fns`.
+- Never import `moment` or `moment-timezone`. Use `date-fns`, and `@date-fns/tz` for time zones.
 - Parse ISO strings with `parseISO`. Format with `format(date, "yyyy-MM-dd")`.
 - Day math with `differenceInCalendarDays`, `startOfMonth`, `endOfMonth`, `isSameMonth`, `subDays`.
-- Functions accept and return `Date` or ISO `string`, never `any`.
+- Helpers in `packages/shared` accept ISO `string` input and return `string` for formatting or `Date` for math. Never accept `any`, and never accept both `string` and `Date` in the same function.

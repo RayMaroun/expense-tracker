@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { format, parseISO } from "date-fns";
-import { dollarsToCents, formatDate, formatDateLong, sumCents, type Category, type Expense } from "@expense/shared";
+import { dollarsToCents, formatDate, formatDateLong, sumCents, todayIso, type Category, type Expense } from "@expense/shared";
 import { expenses } from "../data.js";
 
 export const expensesRouter = Router();
@@ -29,7 +29,7 @@ expensesRouter.post("/", (req, res) => {
     description: body.description,
     amount: dollarsToCents(body.amount),
     category: body.category,
-    date: body.date ? formatDate(body.date) : formatDate(new Date())
+    date: body.date ? formatDate(body.date) : todayIso()
   };
   expenses.push(expense);
   res.status(201).json(expense);

@@ -5,6 +5,7 @@
   `api` and `web` call it. They never format dates or money themselves.
 - `packages/api` owns the HTTP routes and the in-memory data. It imports from `shared`.
 - `packages/web` renders what the API returns. It imports formatting helpers from `shared`.
+- `packages/legacy-clients` is retired. Nothing imports it. Do not change it.
 
 ## Money
 - All money is integer cents end to end: `1250` means $12.50.
@@ -14,6 +15,7 @@
 ## Dates
 - Dates travel across the API as ISO strings (`2026-09-02`).
 - Parse with `parseISO` where a `Date` is needed. Format with `format(date, "yyyy-MM-dd")` for output.
+- Reports are computed in the business time zone, `America/Los_Angeles`, using `@date-fns/tz`.
 - Never send a `Date` object or a timestamp over the API.
 
 ## Things that have gone wrong before

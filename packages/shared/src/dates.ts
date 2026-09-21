@@ -7,36 +7,33 @@ import {
   startOfMonth as dfStartOfMonth,
 } from "date-fns";
 
-// Date helpers. Inputs are ISO strings or Date objects; outputs are ISO strings or Dates.
+// Date helpers. Inputs are ISO date strings ("2026-09-02").
+// Formatting helpers return strings; math helpers return Dates.
 
-function toDate(d: string | Date): Date {
-  return typeof d === "string" ? parseISO(d) : d;
+export function formatDate(iso: string): string {
+  return format(parseISO(iso), "yyyy-MM-dd");
 }
 
-export function formatDate(d: string | Date): string {
-  return format(toDate(d), "yyyy-MM-dd");
+export function formatDateLong(iso: string): string {
+  return format(parseISO(iso), "MMMM d, yyyy");
 }
 
-export function formatDateLong(d: string | Date): string {
-  return format(toDate(d), "MMMM d, yyyy");
+export function daysBetween(fromIso: string, toIso: string): number {
+  return differenceInCalendarDays(parseISO(toIso), parseISO(fromIso));
 }
 
-export function daysBetween(a: string | Date, b: string | Date): number {
-  return differenceInCalendarDays(toDate(b), toDate(a));
+export function startOfMonth(iso: string): Date {
+  return dfStartOfMonth(parseISO(iso));
 }
 
-export function startOfMonth(d: string | Date): Date {
-  return dfStartOfMonth(toDate(d));
+export function endOfMonth(iso: string): Date {
+  return dfEndOfMonth(parseISO(iso));
 }
 
-export function endOfMonth(d: string | Date): Date {
-  return dfEndOfMonth(toDate(d));
+export function isSameMonth(aIso: string, bIso: string): boolean {
+  return dfIsSameMonth(parseISO(aIso), parseISO(bIso));
 }
 
-export function isSameMonth(a: string | Date, b: string | Date): boolean {
-  return dfIsSameMonth(toDate(a), toDate(b));
-}
-
-export function today(): Date {
-  return new Date();
+export function todayIso(): string {
+  return format(new Date(), "yyyy-MM-dd");
 }

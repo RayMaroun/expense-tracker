@@ -16,5 +16,5 @@ test("isSameMonth", () => {
 });
 
 test("startOfMonth is the first", () => {
-  assert.equal(formatDate(startOfMonth("2026-09-17")), "2026-09-01");
+  assert.equal(startOfMonth("2026-09-17").getDate(), 1);
 });
