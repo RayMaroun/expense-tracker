@@ -29,8 +29,3 @@ export function splitCentsEvenly(totalCents: number, ways: number): number {
   return Math.round(totalCents / ways);
 }
 
-// Transitional aliases kept until api and web are migrated.
-export const sumMoney = sumCents;
-export const addMoney = addCents;
-export const formatMoney = formatCents;
-export const splitEvenly = splitCentsEvenly;

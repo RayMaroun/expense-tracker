@@ -25,7 +25,9 @@ if (module >= 4) {
 }
 if (module >= 5) {
   checks.push(["packages/web no longer imports moment", !contains("packages/web/src/app.ts","from \"moment\"")]);
-  checks.push(["tests exist", filesIn("packages/shared/test").length > 0 || filesIn("packages/shared/src").some(f => f.endsWith(".test.ts"))]);
+  checks.push(["tests exist", filesIn("packages/shared/test").length > 0 && filesIn("packages/api/test").length > 0]);
+  checks.push(["docs/MIGRATION.md exists", has("docs/MIGRATION.md")]);
+  checks.push(["moment removed from package.json files", !contains("packages/web/package.json","moment") && !contains("packages/api/package.json","moment") && !contains("packages/shared/package.json","moment")]);
 }
 if (module < 3) {
   checks.push(["repository present", has("package.json")]);

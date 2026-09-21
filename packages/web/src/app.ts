@@ -1,5 +1,5 @@
-import moment from "moment";
-import { formatMoney } from "@expense/shared";
+import { format, parseISO } from "date-fns";
+import { formatCents, sumCents, type Expense } from "@expense/shared";
 
 const API = "http://localhost:3000";
 
@@ -7,24 +7,24 @@ const monthInput = document.getElementById("month") as HTMLInputElement;
 const rowsEl = document.getElementById("rows") as HTMLElement;
 const totalEl = document.getElementById("total") as HTMLElement;
 
-async function load() {
+type ExpensesResponse = { count: number; total: number; items: Expense[] };
+
+async function load(): Promise<void> {
   const res = await fetch(`${API}/expenses?month=${monthInput.value}`);
-  const data: any = await res.json();
+  const data = (await res.json()) as ExpensesResponse;
 
   rowsEl.innerHTML = "";
-  let runningTotal = 0;
   for (const item of data.items) {
-    runningTotal = runningTotal + item.amount;
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${moment(item.date).format("ddd, MMM D")}</td>
+      <td>${format(parseISO(item.date), "EEE, MMM d")}</td>
       <td>${item.description}</td>
       <td>${item.category}</td>
-      <td class="num">${formatMoney(item.amount)}</td>`;
+      <td class="num">${formatCents(item.amount)}</td>`;
     rowsEl.appendChild(tr);
   }
-  totalEl.textContent = formatMoney(runningTotal);
+  totalEl.textContent = formatCents(sumCents(data.items.map((i) => i.amount)));
 }
 
-monthInput.addEventListener("change", load);
-load();
+monthInput.addEventListener("change", () => void load());
+void load();
