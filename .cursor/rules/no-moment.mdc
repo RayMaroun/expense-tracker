@@ -1,0 +1,12 @@
+---
+description: Date handling standard
+globs: "**/*.ts"
+alwaysApply: false
+---
+
+# Dates
+
+- Never import `moment`. Use `date-fns`.
+- Parse ISO strings with `parseISO`. Format with `format(date, "yyyy-MM-dd")`.
+- Day math with `differenceInCalendarDays`, `startOfMonth`, `endOfMonth`, `isSameMonth`, `subDays`.
+- Functions accept and return `Date` or ISO `string`, never `any`.

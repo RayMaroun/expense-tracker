@@ -1,17 +1,23 @@
 // Shared shapes used by the api and the web page.
 
+export type Category = "food" | "travel" | "events" | "other";
+
 export type Expense = {
   id: string;
   description: string;
-  amount: any;        // dollars as a float, e.g. 12.5
-  category: any;
-  date: any;          // ISO string or Date
-  tags?: any;
+  /** Integer cents. 1250 means $12.50. */
+  amount: number;
+  category: Category;
+  /** ISO date string, e.g. "2026-09-02". */
+  date: string;
+  tags?: string[];
 };
 
 export type Report = {
-  from: any;
-  to: any;
-  total: any;
-  byCategory: any;
+  from: string;
+  to: string;
+  days: number;
+  totalCents: number;
+  perDayCents: number;
+  byCategoryCents: Partial<Record<Category, number>>;
 };

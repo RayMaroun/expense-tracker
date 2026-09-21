@@ -1,0 +1,7 @@
+---
+description: Read before changing how api or web handle money or dates
+globs: "packages/api/**,packages/web/**"
+alwaysApply: false
+---
+
+Read `docs/ARCHITECTURE.md` first and follow it. Money is integer cents; dates cross the API as ISO strings; only `packages/shared` formats either.

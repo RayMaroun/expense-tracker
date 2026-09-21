@@ -1,0 +1,8 @@
+---
+description: TypeScript type discipline
+globs: "**/*.ts"
+alwaysApply: false
+---
+
+- No `any`. Use precise types or `unknown` with narrowing.
+- Exported functions have explicit parameter and return types.

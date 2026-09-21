@@ -1,0 +1,9 @@
+---
+description: Working agreement for multi-file changes
+alwaysApply: true
+---
+
+- Before editing more than one file, list the files you will touch and why, then proceed.
+- `packages/legacy-clients` is retired and unused. Never edit it. `packages/web/dist` is build output. Never edit it.
+- After changes, run `npm run typecheck` and report the result.
+- Keep changes minimal. Do not refactor code the task did not ask you to touch.

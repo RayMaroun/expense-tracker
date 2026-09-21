@@ -1,0 +1,11 @@
+---
+description: Money handling standard
+globs: "**/*.ts"
+alwaysApply: false
+---
+
+# Money
+
+- Store amounts as **integer cents** (`number`). Never floats for currency.
+- Convert at the edges only: `dollarsToCents("12.50") -> 1250`, `formatCents(1250) -> "$12.50"`.
+- Never use `toFixed` to "fix" rounding. Never divide money without `Math.round`.

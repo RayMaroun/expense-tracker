@@ -1,31 +1,42 @@
-import moment from "moment";
+import {
+  differenceInCalendarDays,
+  endOfMonth as dfEndOfMonth,
+  format,
+  isSameMonth as dfIsSameMonth,
+  parseISO,
+  startOfMonth as dfStartOfMonth,
+} from "date-fns";
 
-// Date helpers.
+// Date helpers. Inputs are ISO strings or Date objects; outputs are ISO strings or Dates.
 
-export function formatDate(d: any) {
-  return moment(d).format("YYYY-MM-DD");
+function toDate(d: string | Date): Date {
+  return typeof d === "string" ? parseISO(d) : d;
 }
 
-export function formatDateLong(d: any) {
-  return moment(d).format("MMMM D, YYYY");
+export function formatDate(d: string | Date): string {
+  return format(toDate(d), "yyyy-MM-dd");
 }
 
-export function daysBetween(a: any, b: any) {
-  return moment(b).diff(moment(a), "days");
+export function formatDateLong(d: string | Date): string {
+  return format(toDate(d), "MMMM d, yyyy");
 }
 
-export function startOfMonth(d: any) {
-  return moment(d).startOf("month").toDate();
+export function daysBetween(a: string | Date, b: string | Date): number {
+  return differenceInCalendarDays(toDate(b), toDate(a));
 }
 
-export function endOfMonth(d: any) {
-  return moment(d).endOf("month").toDate();
+export function startOfMonth(d: string | Date): Date {
+  return dfStartOfMonth(toDate(d));
 }
 
-export function isSameMonth(a: any, b: any) {
-  return moment(a).isSame(moment(b), "month");
+export function endOfMonth(d: string | Date): Date {
+  return dfEndOfMonth(toDate(d));
 }
 
-export function today() {
-  return moment();
+export function isSameMonth(a: string | Date, b: string | Date): boolean {
+  return dfIsSameMonth(toDate(a), toDate(b));
+}
+
+export function today(): Date {
+  return new Date();
 }
