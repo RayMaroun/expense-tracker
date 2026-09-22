@@ -4,7 +4,10 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b",
-    "dev": "npx --yes serve -l 5173 ."
+    "dev": "tsc -b && npx --yes serve -l 5173 ../.."
   },
-  "dependencies": { "@expense/shared": "*", "moment": "^2.30.1" }
+  "dependencies": {
+    "@expense/shared": "*",
+    "moment": "^2.30.1"
+  }
 }

@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/packages/web/index.html"
+    }
+  ]
+}

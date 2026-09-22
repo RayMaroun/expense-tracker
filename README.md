@@ -15,7 +15,7 @@ packages/legacy-clients   partner API clients and reconciliation reports
 npm install
 npm run typecheck
 npm run api      # http://localhost:3000/expenses
-npm run web      # http://localhost:5173
+npm run web      # http://localhost:5173  (serves the repo root; the page is packages/web/index.html)
 ```
 
 ## Scripts
