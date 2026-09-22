@@ -1,6 +1,6 @@
 {
   "name": "@expense/legacy-clients",
-  "version": "0.3.2",
+  "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
   "scripts": { "build": "tsc -b" },
