@@ -21,3 +21,4 @@ npm run web      # http://localhost:5173  (serves the repo root; the page is pac
 ## Scripts
 
 - `npm run typecheck` compiles every package without emitting files.
+- `npm run reset` deletes all build output and rebuilds from source. Run it after switching branches.
