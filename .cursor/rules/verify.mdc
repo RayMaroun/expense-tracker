@@ -1,0 +1,6 @@
+---
+description: Check your work before reporting done
+alwaysApply: true
+---
+
+Before reporting a task complete, run `npm run typecheck` and `npm test` if tests exist. Fix failures. Include a one-line summary of the results in your final message.
