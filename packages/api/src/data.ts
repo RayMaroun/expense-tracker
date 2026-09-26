@@ -1,6 +1,9 @@
 import type { Expense } from "@expense/shared";
+import type { RecurringTemplate } from "./recurring.js";
 
 // In-memory "database".
+export const recurring: RecurringTemplate[] = [];
+
 export const expenses: Expense[] = [
   { id: "e1", description: "Team lunch",        amount: 84.1,  category: "food",   date: "2026-09-02" },
   { id: "e2", description: "Taxi to airport",   amount: 37.25, category: "travel", date: "2026-09-03" },

@@ -1,7 +1,8 @@
 import { Router } from "express";
 import moment from "moment";
 import { formatDate, sumMoney } from "@expense/shared";
-import { expenses } from "../data.js";
+import { expenses, recurring } from "../data.js";
+import { occurrencesForMonth } from "../recurring.js";
 
 export const expensesRouter = Router();
 
@@ -11,6 +12,9 @@ expensesRouter.get("/", (req, res) => {
   let rows = expenses;
   if (month) {
     rows = rows.filter((e) => moment(e.date).format("YYYY-MM") === month);
+    if (typeof month === "string") {
+      rows = rows.concat(occurrencesForMonth(recurring, month));
+    }
   }
   res.json({
     count: rows.length,

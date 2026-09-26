@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b",
-    "dev": "tsc -b && node dist/server.js"
+    "dev": "tsc -b && node dist/server.js",
+    "test": "tsc -b && node --test dist/routes/recurring.test.js"
   },
   "dependencies": {
     "@expense/shared": "*",

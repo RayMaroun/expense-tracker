@@ -1,0 +1,7 @@
+---
+description: Which packages are live and which are dead; read when deciding what to change
+---
+
+- packages/shared, packages/api, packages/web are the live application.
+- packages/legacy-clients is dead code kept for reference. Never edit or migrate it.
+- dist/ folders are build output. Never edit them.

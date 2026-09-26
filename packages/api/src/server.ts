@@ -1,5 +1,6 @@
 import express from "express";
 import { expensesRouter } from "./routes/expenses.js";
+import { recurringRouter } from "./routes/recurring.js";
 import { reportsRouter } from "./routes/reports.js";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use((_req, res, next) => {
 });
 
 app.use("/expenses", expensesRouter);
+app.use("/recurring", recurringRouter);
 app.use("/reports", reportsRouter);
 
 const port = Number(process.env.PORT) || 3000;

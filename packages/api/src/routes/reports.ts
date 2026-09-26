@@ -4,7 +4,16 @@ import moment from "moment-timezone";
 // Reports are computed in the business time zone, not the server's.
 const BUSINESS_TZ = "America/Los_Angeles";
 import { daysBetween, sumMoney, splitEvenly } from "@expense/shared";
-import { expenses } from "../data.js";
+import { expenses, recurring } from "../data.js";
+import { occurrencesForMonth } from "../recurring.js";
+
+// Date-only strings are calendar dates in the business zone. An offset timestamp stays an absolute instant.
+function inBusinessRange(date: string, from: Date, to: Date) {
+  const parsed = /^\d{4}-\d{2}-\d{2}$/.test(date)
+    ? moment.tz(date, "YYYY-MM-DD", BUSINESS_TZ)
+    : moment(date);
+  return parsed.isBetween(from, to, undefined, "[]");
+}
 
 export const reportsRouter = Router();
 
@@ -14,7 +23,9 @@ reportsRouter.get("/monthly", (req, res) => {
   const from = moment.tz(month + "-01", BUSINESS_TZ).startOf("month").toDate();
   const to = moment.tz(month + "-01", BUSINESS_TZ).endOf("month").toDate();
 
-  const rows = expenses.filter((e) => moment(e.date).isBetween(from, to, undefined, "[]"));
+  const stored = expenses.filter((e) => inBusinessRange(e.date, from, to));
+  const occ = typeof month === "string" ? occurrencesForMonth(recurring, month) : [];
+  const rows = stored.concat(occ);
   const byCategory: any = {};
   for (const r of rows) {
     byCategory[r.category] = (byCategory[r.category] || 0) + r.amount;
