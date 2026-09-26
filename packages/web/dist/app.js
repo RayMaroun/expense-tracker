@@ -1,4 +1,4 @@
-import moment from "moment";
+import { format, parseISO } from "date-fns";
 import { formatMoney } from "@expense/shared";
 const API = "http://localhost:3000";
 const monthInput = document.getElementById("month");
@@ -13,7 +13,7 @@ async function load() {
         runningTotal = runningTotal + item.amount;
         const tr = document.createElement("tr");
         tr.innerHTML = `
-      <td>${moment(item.date).format("ddd, MMM D")}</td>
+      <td>${format(parseISO(item.date), "EEE, MMM d")}</td>
       <td>${item.description}</td>
       <td>${item.category}</td>
       <td class="num">${formatMoney(item.amount)}</td>`;

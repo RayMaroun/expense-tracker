@@ -1,5 +1,5 @@
 import { Router } from "express";
-import moment from "moment";
+import { format, parseISO } from "date-fns";
 import { formatDate, sumMoney } from "@expense/shared";
 import { expenses } from "../data.js";
 
@@ -7,10 +7,10 @@ export const expensesRouter = Router();
 
 // GET /expenses?month=2026-09
 expensesRouter.get("/", (req, res) => {
-  const month: any = req.query.month;
+  const month = req.query.month;
   let rows = expenses;
   if (month) {
-    rows = rows.filter((e) => moment(e.date).format("YYYY-MM") === month);
+    rows = rows.filter((e) => format(e.date, "yyyy-MM") === month);
   }
   res.json({
     count: rows.length,
@@ -27,7 +27,7 @@ expensesRouter.post("/", (req, res) => {
     description: body.description,
     amount: parseFloat(body.amount),
     category: body.category,
-    date: moment(body.date || undefined).toISOString()
+    date: (body.date ? parseISO(body.date) : new Date()).toISOString()
   };
   expenses.push(expense);
   res.status(201).json(expense);
@@ -37,5 +37,5 @@ expensesRouter.post("/", (req, res) => {
 expensesRouter.get("/:id", (req, res) => {
   const found = expenses.find((e) => e.id === req.params.id);
   if (!found) return res.status(404).json({ error: "not found" });
-  res.json({ ...found, date: moment(found.date).format("dddd, MMMM Do YYYY") });
+  res.json({ ...found, date: format(found.date, "EEEE, MMMM do yyyy") });
 });

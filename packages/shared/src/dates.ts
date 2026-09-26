@@ -1,31 +1,42 @@
-import moment from "moment";
+import {
+  differenceInMilliseconds,
+  endOfMonth as dateFnsEndOfMonth,
+  format,
+  isSameMonth as dateFnsIsSameMonth,
+  startOfMonth as dateFnsStartOfMonth,
+} from "date-fns";
 
 // Date helpers.
 
-export function formatDate(d: any) {
-  return moment(d).format("YYYY-MM-DD");
+type DateInput = Date | string | number;
+
+const MS_PER_DAY = 86_400_000;
+
+export function formatDate(d: DateInput) {
+  return format(d, "yyyy-MM-dd");
 }
 
-export function formatDateLong(d: any) {
-  return moment(d).format("MMMM D, YYYY");
+export function formatDateLong(d: DateInput) {
+  return format(d, "MMMM d, yyyy");
 }
 
-export function daysBetween(a: any, b: any) {
-  return moment(b).diff(moment(a), "days");
+export function daysBetween(a: DateInput, b: DateInput) {
+  const ms = differenceInMilliseconds(b, a);
+  return ms < 0 ? Math.ceil(ms / MS_PER_DAY) || 0 : Math.floor(ms / MS_PER_DAY);
 }
 
-export function startOfMonth(d: any) {
-  return moment(d).startOf("month").toDate();
+export function startOfMonth(d: DateInput) {
+  return dateFnsStartOfMonth(d);
 }
 
-export function endOfMonth(d: any) {
-  return moment(d).endOf("month").toDate();
+export function endOfMonth(d: DateInput) {
+  return dateFnsEndOfMonth(d);
 }
 
-export function isSameMonth(a: any, b: any) {
-  return moment(a).isSame(moment(b), "month");
+export function isSameMonth(a: DateInput, b: DateInput) {
+  return dateFnsIsSameMonth(a, b);
 }
 
 export function today() {
-  return moment();
+  return new Date();
 }
