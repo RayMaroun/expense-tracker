@@ -1,0 +1,6 @@
+---
+description: Read the status file before starting any task
+alwaysApply: true
+---
+
+At the start of any task, read `docs/STATUS.md` if it exists, and treat it as the current state of the work.

@@ -1,0 +1,8 @@
+---
+description: HTTP API conventions
+globs: packages/api/**/*.ts
+---
+
+- Every route that accepts input validates it and returns 400 on bad input.
+- Every error response has the shape { "error": { "code": "UPPER_SNAKE", "message": "..." } }. The older { error: "text" } shape in this codebase is legacy; do not copy it.
+- Every new route gets `<name>.test.ts` next to it using `node:test` and `node:assert/strict`. No test framework.

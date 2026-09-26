@@ -1,0 +1,11 @@
+---
+description: Money and date conventions for the whole repo
+alwaysApply: true
+---
+
+- Money is stored and computed as integer cents. Convert to dollars only for display or on the HTTP boundary (number with two decimals). Never use toFixed inside calculations.
+- Dates cross the HTTP boundary as YYYY-MM-DD strings. Never emit Date objects or ISO timestamps.
+- Anything that decides "which calendar day" or "is this due" uses the business time zone America/Los_Angeles.
+- Do not add npm dependencies. If a task seems to need one, stop and ask.
+- Do not introduce new `any`. Tighten existing `any` when you touch a line.
+- The moment library is deprecated in this repository. Do not add new uses of it; new date code uses the helpers in packages/shared.
